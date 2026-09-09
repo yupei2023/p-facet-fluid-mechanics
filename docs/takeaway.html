@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P-FACET Take-away</title>
+<meta name="description" content="One printable page: the six P-FACET phases in six lines, two prompts to paste, what AI gets wrong on fluids problems, and the one test before you hand work to AI.">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  main{max-width:1040px; margin:0 auto; padding:0 24px; font-size:16px}  /* one screen: 16px body on this page only (mobile body size); nothing below 14px */
+
+  /* ---------- header: one-line title, one-line lede, the strip ---------- */
+  header.top{padding:12px 0 0}
+  header.top h1{font-family:var(--serif); font-weight:600; font-size:clamp(24px,2.1vw,30px); line-height:1.15; margin:0 0 4px; text-wrap:balance}
+  header.top h1 em{font-style:normal; color:var(--anchor)}
+  .lede{margin:0; font-size:var(--fs-lead); line-height:1.5; color:var(--ink)}
+  .lede b.g{color:var(--learner)} .lede b.b{color:var(--ai-text)}
+  .strip{display:flex; align-items:center; gap:4px; margin:8px 0 0; flex-wrap:wrap}
+  .strip .tile{position:relative; flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; gap:4px}
+  .strip .tile.p{margin-right:12px}
+  .strip .lt{display:block; width:100%; text-align:center; font-weight:700; font-size:17px; line-height:1.3; padding:8px 0; border-radius:8px; background:var(--learner-soft); color:var(--learner)}
+  .strip .tile.p .lt{background:var(--anchor-soft); color:var(--anchor)}
+  .strip .tile.c .lt{background:var(--ai-soft); color:var(--ai-text)}
+  .strip small{font-size:var(--fs-label); line-height:1.3; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--learner)}
+  .strip .tile.p small{color:var(--anchor-text)} .strip .tile.c small{color:var(--ai-text)}
+  .strip .loop{align-self:flex-start; padding:8px 0 0 4px; font-size:20px; line-height:1.3; color:var(--muted)}
+  .strip .btn{flex:none; align-self:flex-start; margin-left:12px; padding:8px 16px; font-size:var(--fs-small); min-height:38px}
+  @media (max-width:600px){ .strip .lt{font-size:16px} .strip .btn{width:100%; justify-content:center; margin:8px 0 0} }
+  @media (max-width:480px){ .strip small{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap} }
+
+  .sec{margin-top:12px}
+  .site-footer{margin-top:24px; padding:16px 24px 24px}
+
+  /* ---------- the six phases: six rows ---------- */
+  .rows{list-style:none; margin:0; padding:0; display:grid; gap:4px}
+  .row{display:grid; grid-template-columns:32px 1fr 18px; column-gap:10px; align-items:start; padding:5px 12px 5px 10px; border-radius:10px; background:var(--surface); border:1px solid var(--line); border-left:5px solid var(--learner)}
+  .row.p{border-left-color:var(--anchor)} .row.c{border-left-color:var(--ai)}
+  .row .lt{font-family:var(--serif); font-size:24px; font-weight:700; line-height:26px; text-align:center; color:var(--learner)}
+  .row.p .lt{color:var(--anchor)} .row.c .lt{color:var(--ai)}
+  .row p{margin:0; line-height:1.55}
+  .row .name{font-weight:700}
+  .row .who{font-size:var(--fs-label); line-height:1.3; font-weight:700; letter-spacing:.06em; text-transform:uppercase; white-space:nowrap; color:var(--learner); margin:0 6px 0 4px}
+  .row.p .who{color:var(--anchor-text)} .row.c .who{color:var(--ai-text)}
+  .row .ai{color:var(--ai-text); font-weight:650}
+  /* one quiet tick box per row, remembered in this browser; no counter, no reset, no banner */
+  .row .tick{width:18px; height:18px; margin:3px 0 0; justify-self:end; cursor:pointer; accent-color:var(--learner)}
+  .row.p .tick{accent-color:var(--anchor)} .row.c .tick{accent-color:var(--ai)}
+  @media (max-width:600px){ .row{grid-template-columns:30px 1fr 18px; column-gap:8px} .row .lt{font-size:22px} }
+
+  /* ---------- at C: the prompts ---------- */
+  .pattern{margin:0 0 6px; padding:5px 14px; border-radius:8px; background:var(--ai-soft); border-left:4px solid var(--ai)}
+  .pattern b{color:var(--ai-text)}
+  .prompts{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  @media (max-width:720px){ .prompts{grid-template-columns:1fr} }
+  .pr{min-width:0; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:6px 14px 8px; display:flex; flex-direction:column; gap:4px}
+  .pr .head{display:flex; align-items:center; justify-content:space-between; gap:12px}
+  .pr h2{margin:0; font-family:var(--sans); font-size:var(--fs-h3); font-weight:650; line-height:1.3; color:var(--ai-text)}
+  .pr .prompt{margin:0; padding:6px 12px; white-space:pre-wrap; overflow-wrap:anywhere}
+  .pr .copy{flex:none; font:inherit; font-size:var(--fs-small); font-weight:650; line-height:1.2; min-height:38px; padding:6px 14px; border-radius:8px; border:1px solid var(--line); background:var(--chip); color:var(--ink); cursor:pointer}
+  .pr .copy:hover{border-color:var(--ai); color:var(--ai-text)}
+  .pr .copy.done{background:var(--learner-soft); color:var(--learner); border-color:var(--learner)}
+
+  /* ---------- at E + the one test: side by side ---------- */
+  .two{display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:start}
+  @media (max-width:820px){ .two{grid-template-columns:1fr} }
+  .flag{padding:8px 14px; border-radius:0 8px 8px 0; border-left:4px solid var(--risk); background:var(--risk-soft)}
+  .flag p{margin:0}
+  .flag b{color:var(--risk)}
+  details.more{margin:2px 0 0}
+  details.more summary{cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:6px; min-height:28px; font-size:var(--fs-small); line-height:1.5; font-weight:650; color:var(--muted)}
+  details.more summary::-webkit-details-marker{display:none}
+  details.more summary::before{content:"▸"; color:var(--risk)}
+  details.more[open] summary::before{content:"▾"}
+  details.more ul{margin:0 0 4px; padding-left:20px; font-size:var(--fs-small); line-height:1.5}
+  details.more li{margin:4px 0}
+  details.more li b{color:var(--risk)}
+  .hint{padding:8px 14px; border-radius:0 8px 8px 0; border-left:4px solid var(--learner); background:var(--learner-soft)}
+  .hint p{margin:0}
+  .hint b{color:var(--learner)}
+  .hint .mech{color:var(--learner)} .hint .sup{color:var(--ai-text)} .hint .sub{color:var(--risk)}
+  .hint .mech, .hint .sup, .hint .sub{font-weight:650; white-space:nowrap}
+
+  /* ---------- print: one sheet, A4 or Letter ---------- */
+  @media print{
+    @page{size:auto; margin:12mm}
+    :root{--bg:#fff; --surface:#fff; --ink:#000; --muted:#444; --line:#bbb; --chip:#f1f1f1;
+      --learner:#2E6B4E; --learner-soft:#eef4f0; --ai:#4A6FA5; --ai-soft:#edf1f7; --anchor:#b07a22; --anchor-soft:#f8f0e0; --risk:#A84B3A; --risk-soft:#f7e8e4;
+      --anchor-text:#8A5E17; --ai-text:#3D5F91;
+      --fs-label:9pt; --fs-small:9.5pt; --fs-body:10.5pt; --fs-lead:10.5pt; --fs-h3:10.5pt; --fs-h2:13pt; --fs-h1:20pt; --fs-mono:9.5pt}
+    html,body{font-size:10.5pt; line-height:1.4; background:#fff !important; color:#000 !important}
+    main{max-width:none; padding:0}
+    header.top{padding:0}
+    header.top h1{font-size:18pt; margin:0 0 4pt}
+    .strip{margin-top:6pt} .strip .lt{font-size:10pt; padding:2pt 0} .strip .loop{font-size:12pt; padding-top:2pt}
+    .sec{margin-top:8pt}
+    .rows{gap:3pt}
+    .row{padding:2pt 6pt 2pt 5pt; column-gap:6pt; grid-template-columns:22pt 1fr 10pt; border-left-width:3pt; break-inside:avoid}
+    .row .tick{width:10pt; height:10pt; margin-top:1pt}
+    .row .lt{font-size:14pt; line-height:14pt}
+    .pattern, .flag, .hint{padding:3pt 6pt} .pattern{margin:0 0 4pt}
+    .prompts{grid-template-columns:1fr 1fr; gap:6px}
+    .pr{padding:4pt 6pt; gap:2pt; break-inside:avoid} .pr .prompt{padding:3pt 5pt}
+    .two{grid-template-columns:1fr 1fr; gap:6px}
+    .site-footer{margin-top:8pt; padding:5pt 0 0}
+    .site-footer p{margin:1pt 0}
+    .nav, .no-print, .pr .copy, details.more{display:none !important}
+    a{color:inherit; text-decoration:none}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Site">
+  <a class="brand" href="index.html"><span class="dot" aria-hidden="true">P</span>P-FACET for Fluid Mechanics</a>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="takeaway.html" aria-current="page">Take-away</a>
+    <a class="play" href="game.html">Play Flowline →</a>
+  </div>
+</nav>
+
+<main>
+  <header class="top">
+    <h1>Using AI on a fluids problem without <em>giving away</em> the thinking</h1>
+    <p class="lede"><b class="g">The green phases are yours;</b> <b class="b">AI enters only at C, the blue one.</b></p>
+    <div class="strip">
+      <span class="tile p"><b class="lt">P</b><small>Problem</small></span>
+      <span class="tile"><b class="lt">F</b><small>Frame</small></span>
+      <span class="tile"><b class="lt">A</b><small>Attempt</small></span>
+      <span class="tile c"><b class="lt">C</b><small>Consult</small></span>
+      <span class="tile"><b class="lt">E</b><small>Evaluate</small></span>
+      <span class="tile"><b class="lt">T</b><small>Transfer</small></span>
+      <span class="loop" aria-hidden="true">↺</span>
+      <button class="btn no-print" type="button" id="printBtn">Print</button>
+    </div>
+  </header>
+
+  <!-- ===== the six phases: one row each (letter · name · who · what you do) ===== -->
+  <section class="sec" id="phases" aria-label="The six phases">
+    <ol class="rows">
+      <li class="row p"><span class="lt" aria-hidden="true">P</span><p><b class="name">Problem-Centered Challenge</b><span class="who">You</span>In one line, what's at stake? A barge that must not tip, a road that floods.</p><input class="tick" type="checkbox" data-k="P" aria-label="Done: Problem-Centered Challenge" title="Remembered in this browser"></li>
+      <li class="row"><span class="lt" aria-hidden="true">F</span><p><b class="name">Frame</b><span class="who">You</span>Knowns, unknowns, assumptions (steady? turbulent?), and what a good answer must satisfy.</p><input class="tick" type="checkbox" data-k="F" aria-label="Done: Frame" title="Remembered in this browser"></li>
+      <li class="row"><span class="lt" aria-hidden="true">A</span><p><b class="name">Analogize &amp; Attempt</b><span class="who">You</span>Continuity, energy, momentum, or hydrostatics? Pick one, try it: sketch, estimate, units.</p><input class="tick" type="checkbox" data-k="A" aria-label="Done: Analogize &amp; Attempt" title="Remembered in this browser"></li>
+      <li class="row c"><span class="lt" aria-hidden="true">C</span><p><b class="name">Consult &amp; Construct</b><span class="who">You + AI</span>Show your attempt and one gap; <b class="ai">AI may check, hint, or explain</b> — the rest is yours.</p><input class="tick" type="checkbox" data-k="C" aria-label="Done: Consult &amp; Construct" title="Remembered in this browser"></li>
+      <li class="row"><span class="lt" aria-hidden="true">E</span><p><b class="name">Evaluate &amp; Explain</b><span class="who">You</span>Check it against a hand calc or the textbook — not AI. Accept, revise, or reject; say why.</p><input class="tick" type="checkbox" data-k="E" aria-label="Done: Evaluate &amp; Explain" title="Remembered in this browser"></li>
+      <li class="row"><span class="lt" aria-hidden="true">T</span><p><b class="name">Transform &amp; Transfer</b><span class="who">You</span>Write the final answer in your own words; note what to check first next time.</p><input class="tick" type="checkbox" data-k="T" aria-label="Done: Transform &amp; Transfer" title="Remembered in this browser"></li>
+    </ol>
+  </section>
+
+  <!-- ===== at C: the prompts ===== -->
+  <section class="sec" id="prompts" aria-label="At C: two prompts to paste">
+    <p class="pattern"><b>At C, paste one of these.</b> No attempt yet? Don't open ChatGPT.</p>
+    <div class="prompts">
+      <div class="pr"><div class="head"><h2>Stuck at a step</h2><button class="copy" type="button">Copy</button></div><pre class="prompt">Problem: [one line]. My work: [paste or photo]. I'm stuck at [step]. Flag any error (units, equation, range), then ONE hint. Don't finish it — the rest is mine.</pre></div>
+      <div class="pr"><div class="head"><h2>Check my setup</h2><button class="copy" type="button">Copy</button></div><pre class="prompt">My setup for [problem]: [paste or photo]. Anything inconsistent — equation, assumptions, datum? Point it out — the fix is mine.</pre></div>
+    </div>
+  </section>
+
+  <!-- ===== at E, and the one hand-off test: side by side ===== -->
+  <section class="sec two" aria-label="At E, and the hand-off test">
+    <div class="flag" id="flags">
+      <p><b>At E, AI gets these wrong on fluids: units · assumptions · plausible nonsense · missing constraints.</b> Check each with a calculation or a source — a second AI agreeing isn't evidence.</p>
+      <details class="more">
+        <summary>Four examples</summary>
+        <ul>
+          <li><b>Units:</b> millimeters plugged into a formula written for meters.</li>
+          <li><b>Assumption:</b> the laminar formula (f = 64/Re) used on a turbulent flow (Re = 300,000).</li>
+          <li><b>Plausible nonsense:</b> "minor losses are negligible" — false on a short pipe.</li>
+          <li><b>Missing constraint:</b> hit the flow target, blew past the headwater limit.</li>
+        </ul>
+      </details>
+    </div>
+    <div class="hint" id="offloading">
+      <p><b>Hand AI only what the task isn't teaching.</b> A unit conversion on the side — fine, unless units are what you're practicing; then do it yourself <span class="mech">(mechanical)</span>. "Flag errors in my attempt — the fix is mine" — fine, you judge it <span class="sup">(supportive)</span>. "Size the culvert, show all steps" — skips the learning <span class="sub">(substitutive)</span>.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p class="credit">The P-FACET Model © Yupei Duan &amp; Danielle Oprean, University of Missouri.</p>
+  <p><a href="https://yupei2023.github.io/p-facet">yupei2023.github.io/p-facet</a> · <a href="game.html">Play Flowline</a></p>
+</footer>
+
+<script>
+(function(){
+  document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+
+  // six quiet tick boxes, remembered in this browser (localStorage); no counter, no reset, no banner
+  var KEY = 'pfacet-checklist-v3';
+  var ticks = document.querySelectorAll('.row .tick');
+  var saved = {};
+  try{ saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; }catch(e){ saved = {}; }
+  ticks.forEach(function(t){
+    t.checked = !!saved[t.getAttribute('data-k')];
+    t.addEventListener('change', function(){
+      var state = {};
+      ticks.forEach(function(x){ if(x.checked) state[x.getAttribute('data-k')] = 1; });
+      try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+    });
+  });
+
+  // copy buttons
+  document.querySelectorAll('.pr .copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var text = btn.closest('.pr').querySelector('.prompt').textContent;
+      function done(){ btn.textContent = 'Copied ✓'; btn.classList.add('done'); setTimeout(function(){ btn.textContent='Copy'; btn.classList.remove('done'); }, 1600); }
+      function fallback(){
+        var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly','');
+        ta.style.position='fixed'; ta.style.left='-9999px'; document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); }catch(e){}
+        document.body.removeChild(ta); done();
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done, fallback); }
+      else fallback();
+    });
+  });
+})();
+</script>
+</body>
+</html>

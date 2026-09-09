@@ -1,0 +1,135 @@
+/* P-FACET for Fluid Mechanics — shared design system
+   The palette IS the pedagogy: green = learner-owned, blue = AI's bounded role (C only),
+   amber = the problem anchor (P), red = substitutive use / warnings. Never reassign.
+   --anchor-text / --ai-text are darker cuts of the same two hues, for text under 24 px only. */
+
+:root{
+  --bg:#F7F5F1; --surface:#FFFFFF; --ink:#26241E; --muted:#6B6659;
+  --line:#E2DDD2; --chip:#EFECE4;
+  --learner:#2E6B4E; --learner-soft:#E4EEE8;
+  --ai:#4A6FA5; --ai-soft:#E6ECF5; --ai-text:#3D5F91;
+  --anchor:#C2892D; --anchor-soft:#F5EAD6; --anchor-text:#8A5E17;
+  --risk:#A84B3A; --risk-soft:#F3E2DD;
+  --water:#3E7C9E; --water-soft:#DCEAF0;
+  --shadow:0 1px 2px rgba(38,36,30,.06), 0 8px 24px rgba(38,36,30,.08);
+  --grid:rgba(38,36,30,.055);
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  /* type scale — nothing on screen below --fs-label; serif is display-only (>= 22px) */
+  --fs-label:14px;   /* caps labels: You / You + AI, .eyebrow, strip words, time chips */
+  --fs-small:15px;   /* captions, quoted examples, error-chip text, footer, counter, Copy */
+  --fs-body:17px;    /* everything read as a sentence */
+  --fs-lead:19px;    /* the one lede under each h1 */
+  --fs-h3:18px;      /* sans 650 */
+  --fs-h2:26px;      /* serif 600 */
+  --fs-h1:clamp(32px,4.5vw,44px);
+  --fs-mono:14.5px;  /* prompts only */
+  --measure:62ch;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#211F1B; --surface:#2A2823; --ink:#EAE6DC; --muted:#A39D8E;
+    --line:#3B382F; --chip:#333028;
+    --learner:#6FB392; --learner-soft:#26352D;
+    --ai:#8AA7D6; --ai-soft:#28303E; --ai-text:var(--ai);
+    --anchor:#D9A855; --anchor-soft:#3A3122; --anchor-text:var(--anchor);
+    --risk:#D08A79; --risk-soft:#3C2B26;
+    --water:#7FB3CC; --water-soft:#1F2E36;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+    --grid:rgba(234,230,220,.06);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#211F1B; --surface:#2A2823; --ink:#EAE6DC; --muted:#A39D8E;
+  --line:#3B382F; --chip:#333028;
+  --learner:#6FB392; --learner-soft:#26352D;
+  --ai:#8AA7D6; --ai-soft:#28303E; --ai-text:var(--ai);
+  --anchor:#D9A855; --anchor-soft:#3A3122; --anchor-text:var(--anchor);
+  --risk:#D08A79; --risk-soft:#3C2B26;
+  --water:#7FB3CC; --water-soft:#1F2E36;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  --grid:rgba(234,230,220,.06);
+}
+@media (max-width:600px){
+  :root{--fs-body:16px; --fs-small:14.5px; --fs-lead:18px; --fs-h2:24px; --fs-h3:17px; --fs-h1:30px}
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--sans); font-size:var(--fs-body); line-height:1.55;
+}
+a{color:var(--ai-text)}
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-visible, textarea:focus-visible{
+  outline:3px solid var(--anchor); outline-offset:3px; border-radius:4px;
+}
+.serif{font-family:var(--serif)}
+.mono{font-family:var(--mono)}
+.g{color:var(--learner)} .b{color:var(--ai)} .a{color:var(--anchor)} .r{color:var(--risk)}
+
+/* ---------- site nav ---------- */
+.nav{
+  display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  max-width:1040px; margin:0 auto; padding:16px 24px;
+}
+.nav .brand{
+  font-weight:700; font-size:18px; line-height:1.3; color:var(--ink); text-decoration:none;
+  display:flex; align-items:center; gap:8px;
+}
+.nav .brand .dot{
+  width:26px; height:26px; border-radius:50%; background:var(--anchor-soft); border:2px solid var(--anchor);
+  display:inline-grid; place-items:center; font-size:14px; color:var(--anchor-text);
+}
+.nav .links{margin-left:auto; display:flex; gap:8px; flex-wrap:wrap}
+.nav .links a{
+  color:var(--ink); text-decoration:none; font-size:var(--fs-small); line-height:1.5; font-weight:600;
+  padding:8px 12px; border-radius:999px; border:1px solid transparent;
+}
+.nav .links a:hover{border-color:var(--line); background:var(--surface)}
+.nav .links a[aria-current="page"]{background:var(--chip); border-color:var(--line)}
+.nav .links a.play{background:var(--learner); color:#fff; border-color:var(--learner)}
+.nav .links a.play:hover{filter:brightness(1.08)}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+  font:inherit; font-weight:650; font-size:16px; line-height:1.2;
+  padding:12px 24px; border-radius:12px; border:1px solid var(--line);
+  background:var(--surface); color:var(--ink); text-decoration:none;
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+}
+.btn:hover{transform:translateY(-1px); box-shadow:var(--shadow)}
+.btn:active{transform:translateY(0)}
+.btn.primary{background:var(--learner); border-color:var(--learner); color:#fff}
+.btn.ai{background:var(--ai); border-color:var(--ai); color:#fff}
+.btn.anchor{background:var(--anchor); border-color:var(--anchor); color:#fff}
+.btn.ghost{background:transparent}
+.btn[disabled]{opacity:.5; cursor:not-allowed; transform:none; box-shadow:none}
+
+/* ---------- common blocks ---------- */
+.eyebrow{font-size:var(--fs-label); line-height:1.3; letter-spacing:.06em; text-transform:uppercase; color:var(--anchor-text); font-weight:700; margin-bottom:8px}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:20px 24px}
+.prompt{
+  font-family:var(--mono); font-size:var(--fs-mono); line-height:1.5;
+  background:var(--chip); border:1px solid var(--line); border-radius:8px; padding:12px 16px;
+}
+
+/* ---------- footer ---------- */
+.site-footer{
+  max-width:1040px; margin:48px auto 0; padding:24px 24px 56px; border-top:1px solid var(--line);
+  font-size:var(--fs-small); line-height:1.5; color:var(--muted);
+}
+.site-footer p{margin:4px 0; max-width:var(--measure)}
+.site-footer .credit{color:var(--ink); font-weight:600}
+.site-footer a{color:var(--muted)}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important}
+}
+@media print{
+  .nav, .no-print{display:none !important}
+  body{background:#fff; color:#000}
+}

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flowline · a P-FACET game</title>
+<meta name="description" content="Flowline: three real fluid-mechanics problems, a scripted AI assistant whose replies contain planted errors, and a practice score for the work you keep. A P-FACET game for civil engineering students.">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="game.css?v=3">
+</head>
+<body>
+<div id="app">
+  <header class="hud" id="hud" hidden>
+    <a class="brand" id="homeLink" href="index.html" title="Back to the site home"><span class="dot" aria-hidden="true">P</span>Flowline <small>P-FACET</small></a>
+    <div class="mid">
+      <span class="scen" id="scenLabel">Flowline</span>
+      <div class="track" id="track" aria-label="Phase progress" role="img"></div>
+    </div>
+    <div class="meter" aria-label="Practice points kept and given">
+      <div class="lab"><span class="g">Practice points</span><span id="meterPct">0 kept · 0 given</span></div>
+      <div class="bar"><i id="meterBar"></i></div>
+    </div>
+    <div class="score" aria-live="polite"><b id="scoreNum">0</b><small>practice score</small></div>
+    <div class="tools">
+      <button class="askai" id="askAI" type="button" aria-label="Ask AI"><span class="led" aria-hidden="true"></span>Ask AI</button>
+      <button class="evid" id="evidenceBtn" type="button" aria-controls="tray" aria-expanded="false" title="Opens at A" disabled>Evidence</button>
+    </div>
+  </header>
+
+  <main class="stage" id="stage"></main>
+
+  <footer class="game-footer">
+    <p class="credit">The P-FACET Model © Yupei Duan &amp; Danielle Oprean, University of Missouri.</p>
+    <p>Music (explainer video): Deliberate Thought by Kevin MacLeod (incompetech.com), CC BY 4.0</p>
+    <p><a href="index.html">Home</a> · <a href="takeaway.html">Take-away</a> · Model home: <a href="https://yupei2023.github.io/p-facet">yupei2023.github.io/p-facet</a></p>
+  </footer>
+</div>
+<aside id="tray" class="tray" hidden aria-label="Evidence tray"></aside>
+<div class="pops" id="pops" aria-hidden="true"></div>
+<script src="game.js?v=3"></script>
+</body>
+</html>

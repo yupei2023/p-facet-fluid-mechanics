@@ -1,0 +1,88 @@
+1
+00:00:08,349 --> 00:00:16,649
+Twenty-four centuries ago, Plato told of a king who was offered a marvelous new invention: writing.
+
+2
+00:00:17,149 --> 00:00:30,035
+The king refused. This, he warned, gives only the appearance of wisdom — while the living capacity to question, to explain, and to judge quietly fades.
+
+3
+00:00:30,535 --> 00:00:40,382
+He was wrong to fear it — but right to ask. Every tool since has carried his question: who is doing the thinking?
+
+4
+00:00:40,882 --> 00:00:46,771
+Writing was only the first. It remembers, so we don't have to.
+
+5
+00:00:47,271 --> 00:00:51,378
+Calculators compute in an instant.
+
+6
+00:00:51,878 --> 00:00:56,114
+And search retrieves the world's answers.
+
+7
+00:00:56,614 --> 00:01:14,396
+Generative AI is different: it can frame the problem, build the argument, and judge the answer — the very things you set out to learn. When a tool does the part you were meant to practice, help quietly becomes replacement.
+
+8
+00:01:14,896 --> 00:01:20,103
+P-FACET is a routine for keeping the thinking yours.
+
+9
+00:01:20,603 --> 00:01:28,508
+P — Problem. Anchor your work in something real: what am I solving, and why does it matter?
+
+10
+00:01:29,008 --> 00:01:36,251
+F — Frame. Decide what good looks like: your goals, your criteria, your constraints.
+
+11
+00:01:36,751 --> 00:01:46,459
+A — Analogize and Attempt. Connect what you already know — and try it yourself first. That draft is yours.
+
+12
+00:01:46,959 --> 00:02:00,731
+C — Consult and Construct. Now, and only now, bring in AI. Ask it to critique, to offer alternatives, to poke holes — while you keep building. Not to write for you.
+
+13
+00:02:01,231 --> 00:02:09,968
+E — Evaluate and Explain. Check what it gave you. What do you keep, what do you drop — and why?
+
+14
+00:02:10,468 --> 00:02:17,957
+T — Transform and Transfer. Make the work yours, and carry the routine to your next task.
+
+15
+00:02:18,457 --> 00:02:25,690
+Notice: six phases — and AI enters directly at exactly one.
+
+16
+00:02:26,190 --> 00:02:32,591
+Here's what it looks like. A student working on campus food waste starts by framing her goal.
+
+17
+00:02:33,091 --> 00:02:40,185
+Then she makes her own attempt — a recommendation drafted from her own evidence.
+
+18
+00:02:40,685 --> 00:02:49,763
+Only now does she consult AI: Challenge my reasoning. Give me two counterarguments — don't write my conclusion.
+
+19
+00:02:50,263 --> 00:02:58,243
+She evaluates what comes back — rejecting one claim for weak evidence, revising another after checking the source.
+
+20
+00:02:58,743 --> 00:03:04,589
+And she transforms the work, noting what she'll carry into next time.
+
+21
+00:03:05,089 --> 00:03:17,122
+Your thinking leaves a trail: your first attempt, your bounded prompts, your reasons for keeping or cutting. That trail shows your learning — instead of hiding it.
+
+22
+00:03:17,622 --> 00:03:33,751
+So the next time AI helps you, ask one question: who did the thinking? P-FACET keeps the answer — you. Try the three-minute Quick Start, and run your next assignment through it.
+

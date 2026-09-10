@@ -630,7 +630,7 @@ normalizeScenarios();
 var S; // game state
 function freshState(){
   return {
-    scen:0, phase:0, kept:0, given:0,
+    scen:0, single:false, phase:0, kept:0, given:0,
     scens:[], // per-scenario records
     plan:null,   // {task, attempt, help} — the three-field plan, recorded as a plan
     result:null, // {score, max, rank, pct} once the results screen has computed them (export reads it)
@@ -882,7 +882,7 @@ function updateHUD(){
   if(!S){ $hud.hidden = true; return; }
   $hud.hidden = false;
   var inScen = S.scen < SCENARIOS.length && rec();
-  $scenLabel.textContent = inScen ? (S.scen+1)+' / '+SCENARIOS.length+' · '+cur().title : 'Flowline';
+  $scenLabel.textContent = inScen ? (S.single ? 'Selected scenario' : (S.scen+1)+' / '+SCENARIOS.length)+' · '+cur().title : 'Flowline';
   $track.innerHTML = '';
   PHASES.forEach(function(k, i){
     var sp = h('span', {text:k, title:PHASE_META[k].full});
@@ -1001,7 +1001,7 @@ function titleScreen(){
       h('div', null,
         h('div', {class:'eyebrow rise'}, 'A P-FACET game for fluid mechanics'),
         h('h1', {class:'rise d1', html:'Flow<em>line</em>'}),
-        h('p', {class:'tag rise d2', html:'Three real hydraulics problems. An AI assistant that is fast, confident, and sometimes wrong. <b class="g">Keep the thinking yours</b>, <b class="b">consult with a boundary</b>, and catch what it gets wrong.'}),
+        h('p', {class:'tag rise d2', html:'Choose any of the three games below, or play all three in order. An AI assistant that is fast, confident, and sometimes wrong. <b class="g">Keep the thinking yours</b>, <b class="b">consult with a boundary</b>, and catch what it gets wrong.'}),
         h('ul', {class:'how rise d3'},
           h('li', null, h('b', null, 'P'), h('span', null, 'Move each problem through the six P-FACET phases. Five are yours; AI enters at one.')),
           h('li', null, h('b', null, 'C'), h('span', null, 'Choose — or fix — the prompt you send. What you ask decides who does the thinking.')),
@@ -1009,13 +1009,13 @@ function titleScreen(){
           h('li', null, h('b', null, '?'), h('span', null, 'The "Ask AI" button is always there. Outside phase C it has consequences you will see.'))
         ),
         h('div', {class:'actions rise d4'},
-          h('button', {class:'btn primary', type:'button', 'data-autofocus':'1', onClick:startGame}, 'Start · about 15 minutes'),
+          h('button', {class:'btn primary', type:'button', 'data-autofocus':'1', onClick:function(){ startGame(); }}, 'Play all three · about 15 minutes'),
           h('a', {class:'btn ghost', href:'takeaway.html'}, 'Read the take-away first')
         ),
-        best ? h('p', {class:'best rise d5', html:'Your best practice score: <b>'+esc(best.score)+' / '+esc(best.max)+' · '+esc(best.rank)+'</b> ('+esc(best.date)+')'}) : h('p', {class:'best rise d5'}, hasOldBest() ? 'Best score is saved in this browser only; scores from earlier versions of Flowline are not comparable and are not shown.' : 'Best score is saved in this browser only.')
+        best ? h('p', {class:'best rise d5', html:'Your best three-scenario practice score: <b>'+esc(best.score)+' / '+esc(best.max)+' · '+esc(best.rank)+'</b> ('+esc(best.date)+')'}) : h('p', {class:'best rise d5'}, hasOldBest() ? 'Best score is saved in this browser only; scores from earlier versions of Flowline are not comparable and are not shown.' : 'Best score is saved in this browser only.')
       ),
-      h('div', {class:'scen-list rise d3'}, SCENARIOS.map(function(sc){
-        return h('div', {class:'scen-card'}, h('div', {class:'ico', html:sc.icon}), h('div', null, h('div', {class:'lvl'}, sc.level), h('h4', null, sc.title), h('p', null, sc.blurb)));
+      h('div', {class:'scen-list rise d3'}, SCENARIOS.map(function(sc, index){
+        return h('div', {class:'scen-card'}, h('div', {class:'ico', html:sc.icon}), h('div', null, h('div', {class:'lvl'}, sc.level), h('h4', null, sc.title), h('p', null, sc.blurb), h('button', {class:'btn ghost', type:'button', style:'margin-top:10px', 'aria-label':'Play '+sc.title, onClick:function(){ startGame(index); }}, 'Play this scenario →')));
       }))
     ),
     h('div', {class:'waves', 'aria-hidden':'true', html:'<svg class="back" viewBox="0 0 1200 70" preserveAspectRatio="none"><path fill="currentColor" d="M0,40 C150,10 300,70 450,40 C600,10 750,70 900,40 C1050,10 1200,70 1350,40 L1350,70 L0,70 Z"/></svg><svg viewBox="0 0 1200 70" preserveAspectRatio="none"><path fill="currentColor" d="M0,45 C100,20 200,70 300,45 C400,20 500,70 600,45 C700,20 800,70 900,45 C1000,20 1100,70 1200,45 L1200,70 L0,70 Z"/></svg>'})
@@ -1023,10 +1023,11 @@ function titleScreen(){
   render(node, {instant:true});
 }
 
-function startGame(){
+function startGame(index){
   S = freshState();
   S.scens = SCENARIOS.map(function(){ return null; });
-  S.scen = 0; S.mode = 'intro';
+  S.single = Number.isInteger(index) && index >= 0 && index < SCENARIOS.length;
+  S.scen = S.single ? index : 0; S.mode = 'intro';
   introScreen();
 }
 
@@ -1825,7 +1826,7 @@ function debriefScreen(){
     var lab = given ? 'given to AI' : (leaky ? 'leaked · '+pts+' / '+maxP : (k==='C' && r.repaired ? 'boundary repaired · '+pts+' / '+maxP : pts+' / '+maxP));
     return h('div', {class:'row'}, h('b', {class:k==='P'?'p':(k==='C'?'c':''), text:k}), bar, h('span', {class:'lab'}, lab));
   });
-  var isLast = S.scen === SCENARIOS.length-1;
+  var isLast = S.single || S.scen === SCENARIOS.length-1;
   // Quiet offloading counts too: a request that leaked, and a verdict that rested on the assistant's say-so or on convenience.
   var losses = r.trail.filter(function(e){ return e.pts < 0 || e.leak || (e.pass!==2 && (e.reasonKind==='unsupported_authority' || e.reasonKind==='convenience')); });
   var lossBox = losses.length ? h('div', {class:'stat rise d4', style:'grid-column:1 / -1'}, h('h3', null, 'Where the thinking left'),
@@ -1946,7 +1947,7 @@ function legacyCopy(text){
 }
 function resultsScreen(){
   S.mode = 'results';
-  var max = SCENARIOS.reduce(function(a,sc){ return a+scenMax(sc); }, 0);
+  var max = S.single ? scenMax(cur()) : SCENARIOS.reduce(function(a,sc){ return a+scenMax(sc); }, 0);
   var net = Math.max(0, S.kept - S.given);
   var pct = Math.round(100*net/max);
   var dimsAll = [];
@@ -2001,7 +2002,7 @@ function resultsScreen(){
     trailNode,
     h('p', {class:'note keep-note'}, 'The trail exists in this browser until you leave this page. Copy, download or print it to keep it; nothing is uploaded.'),
     h('div', {class:'actions'},
-      h('button', {class:'btn primary', type:'button', onClick:function(){ S=null; titleScreen(); }}, 'Play again'),
+      h('button', {class:'btn primary', type:'button', onClick:function(){ S=null; titleScreen(); }}, 'Choose another game'),
       h('a', {class:'btn anchor', href:'takeaway.html'}, 'Take the one-page reference'),
       h('button', {class:'btn ghost', type:'button', onClick:function(){ copyText(trailText()).then(function(ok){ status.textContent = ok ? 'Copied.' : 'Copy failed — use download or print.'; }); }}, 'Copy trail'),
       h('button', {class:'btn ghost', type:'button', onClick:function(){ status.textContent = downloadText('flowline-trail.txt', trailText(), 'text/plain;charset=utf-8') ? 'Downloading flowline-trail.txt' : 'Download failed — use copy or print.'; }}, 'Download trail (.txt)'),
@@ -2015,9 +2016,10 @@ function resultsScreen(){
 }
 
 /* ---------- persistence ---------- */
-function loadBest(){ try{ var s = JSON.parse(localStorage.getItem(STORE_KEY)); return s && s.v===CONTENT_VERSION && typeof s.score==='number' ? s : null; }catch(e){ return null; } }
+function bestKey(){ return STORE_KEY + (S && S.single ? '-'+cur().id : ''); }
+function loadBest(){ try{ var s = JSON.parse(localStorage.getItem(bestKey())); return s && s.v===CONTENT_VERSION && typeof s.score==='number' ? s : null; }catch(e){ return null; } }
 function hasOldBest(){ try{ return OLD_STORE_KEYS.some(function(k){ return localStorage.getItem(k) != null; }); }catch(e){ return false; } }
-function saveBest(b){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(b)); }catch(e){} }
+function saveBest(b){ try{ localStorage.setItem(bestKey(), JSON.stringify(b)); }catch(e){} }
 
 /* ---------- keyboard: number keys pick the nth visible option ---------- */
 document.addEventListener('keydown', function(e){

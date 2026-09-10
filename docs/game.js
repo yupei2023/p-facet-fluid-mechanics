@@ -1015,7 +1015,7 @@ function titleScreen(){
         best ? h('p', {class:'best rise d5', html:'Your best three-scenario practice score: <b>'+esc(best.score)+' / '+esc(best.max)+' · '+esc(best.rank)+'</b> ('+esc(best.date)+')'}) : h('p', {class:'best rise d5'}, hasOldBest() ? 'Best score is saved in this browser only; scores from earlier versions of Flowline are not comparable and are not shown.' : 'Best score is saved in this browser only.')
       ),
       h('div', {class:'scen-list rise d3'}, SCENARIOS.map(function(sc, index){
-        return h('div', {class:'scen-card'}, h('div', {class:'ico', html:sc.icon}), h('div', null, h('div', {class:'lvl'}, sc.level), h('h4', null, sc.title), h('p', null, sc.blurb), h('button', {class:'btn ghost', type:'button', style:'margin-top:10px', 'aria-label':'Play '+sc.title, onClick:function(){ startGame(index); }}, 'Play this scenario →')));
+        return h('button', {class:'scen-card', type:'button', 'aria-label':'Play '+sc.title, onClick:function(){ startGame(index); }}, h('span', {class:'ico', 'aria-hidden':'true', html:sc.icon}), h('span', null, h('span', {class:'lvl'}, sc.level), h('span', {class:'scen-title'}, sc.title), h('span', {class:'scen-blurb'}, sc.blurb)));
       }))
     ),
     h('div', {class:'waves', 'aria-hidden':'true', html:'<svg class="back" viewBox="0 0 1200 70" preserveAspectRatio="none"><path fill="currentColor" d="M0,40 C150,10 300,70 450,40 C600,10 750,70 900,40 C1050,10 1200,70 1350,40 L1350,70 L0,70 Z"/></svg><svg viewBox="0 0 1200 70" preserveAspectRatio="none"><path fill="currentColor" d="M0,45 C100,20 200,70 300,45 C400,20 500,70 600,45 C700,20 800,70 900,45 C1000,20 1100,70 1200,45 L1200,70 L0,70 Z"/></svg>'})

@@ -271,11 +271,13 @@ textarea.free:focus{border-color:var(--learner)}
 .waves svg.back{position:absolute; inset:0; opacity:.55; animation-duration:22s; animation-direction:reverse}
 @keyframes drift{from{transform:translateX(0)} to{transform:translateX(-50%)}}
 .scen-list{display:grid; gap:10px}
-.scen-card{display:grid; grid-template-columns:52px 1fr; gap:12px; align-items:center; background:var(--bg); border:1px solid var(--line); border-radius:14px; padding:12px 14px}
+.scen-card{width:100%; text-align:left; font:inherit; color:var(--ink); cursor:pointer; transition:background .18s ease, border-color .18s ease, box-shadow .18s ease; display:grid; grid-template-columns:52px 1fr; gap:12px; align-items:center; background:var(--bg); border:1px solid var(--line); border-radius:14px; padding:12px 14px}
 .scen-card .ico{width:52px; height:52px; border-radius:12px; background:var(--water-soft); display:grid; place-items:center; color:var(--water)}
 .scen-card .ico svg{width:34px; height:34px}
-.scen-card h4{margin:0; font-size:15px} .scen-card p{margin:2px 0 0; font-size:12.8px; color:var(--muted)}
-.scen-card .lvl{font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--anchor)}
+.scen-card .scen-title{display:block; margin:0; font-size:15px; font-weight:700} .scen-card .scen-blurb{display:block; margin:2px 0 0; font-size:12.8px; color:var(--muted)}
+.scen-card:hover{background:var(--water-soft); border-color:var(--water); box-shadow:0 3px 12px var(--water-soft)}
+.scen-card:focus-visible{outline:3px solid var(--water); outline-offset:3px; background:var(--water-soft)}
+.scen-card .lvl{display:block;font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--anchor)}
 
 /* ============ scenario intro ============ */
 .intro{display:grid; grid-template-columns:1fr 1fr; gap:26px; align-items:center}

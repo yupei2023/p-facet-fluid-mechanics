@@ -3,16 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Flowline · P-FACET for Simple Fluid Mechanics</title>
-<meta name="description" content="Flowline: one real fluid-mechanics problem — a hydrant flow test — a scripted AI assistant whose reply contains a planted error, and a practice score for the work you keep. About 9 minutes. A P-FACET game for civil engineering students.">
+<title>Flowline · a P-FACET game</title>
+<meta name="description" content="Flowline: three real fluid-mechanics problems, a scripted AI assistant whose replies contain planted errors, and a practice score for the work you keep. A P-FACET game for civil engineering students.">
 <link rel="stylesheet" href="assets/site.css">
-<link rel="stylesheet" href="game.css?v=4">
+<link rel="stylesheet" href="game.css?v=3">
 </head>
 <body>
 <div id="app">
   <header class="hud" id="hud" hidden>
-    <a class="brand" id="homeLink" href="index.html" title="Back to the site home"><span class="dot" aria-hidden="true">P</span>Flowline <small>P-FACET for Simple Fluid Mechanics</small></a>
+    <a class="brand" id="homeLink" href="index.html" title="Back to the site home"><span class="dot" aria-hidden="true">P</span>Flowline <small>P-FACET</small></a>
     <div class="mid">
+      <span class="scen" id="scenLabel">Flowline</span>
       <div class="track" id="track" aria-label="Phase progress" role="img"></div>
     </div>
     <div class="meter" aria-label="Practice points kept and given">
@@ -24,19 +25,18 @@
       <button class="askai" id="askAI" type="button" aria-label="Ask AI"><span class="led" aria-hidden="true"></span>Ask AI</button>
       <button class="evid" id="evidenceBtn" type="button" aria-controls="tray" aria-expanded="false" title="Opens at A" disabled>Evidence</button>
     </div>
-    <!-- Its own row. On one row the five fixed blocks starve the middle column and the name renders at zero width. -->
-    <span class="scen" id="scenLabel">Flowline</span>
   </header>
 
   <main class="stage" id="stage"></main>
 
   <footer class="game-footer">
     <p class="credit">The P-FACET Model © Yupei Duan &amp; Danielle Oprean, University of Missouri.</p>
-      <p><a href="index.html">Home</a> · <a href="takeaway.html">Take-away</a> · Model home: <a href="https://yupei2023.github.io/p-facet">yupei2023.github.io/p-facet</a></p>
+    <p>Music (explainer video): Deliberate Thought by Kevin MacLeod (incompetech.com), CC BY 4.0</p>
+    <p><a href="index.html">Home</a> · <a href="takeaway.html">Take-away</a> · Model home: <a href="https://yupei2023.github.io/p-facet">yupei2023.github.io/p-facet</a></p>
   </footer>
 </div>
 <aside id="tray" class="tray" hidden aria-label="Evidence tray"></aside>
 <div class="pops" id="pops" aria-hidden="true"></div>
-<script src="game.js?v=4"></script>
+<script src="game.js?v=3"></script>
 </body>
 </html>

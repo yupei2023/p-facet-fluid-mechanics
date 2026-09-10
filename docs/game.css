@@ -1,34 +1,22 @@
 /* Flowline — a P-FACET game for fluid mechanics. Builds on assets/site.css tokens. */
 
-/* One number for the sticky header's height: the pinned reply line and every scroll-into-view offset key off it. */
-:root{--hud-h:84px}
-/* `overflow-x:hidden` on body computes overflow-y to `auto`, which turns body into a scroll container that never scrolls —
-   and every position:sticky inside it then sticks to a scrollport that never moves, i.e. does not stick at all. `clip` clamps
-   the same horizontal overflow without creating a scrollport, so the sticky header, the pinned reply line and any future
-   sticky element actually work. `hidden` stays as the fallback for engines without `clip`. */
 body{overflow-x:hidden}
-@supports (overflow:clip){ body{overflow-x:clip} }
 #app{max-width:1040px; margin:0 auto; padding:0 18px 60px; min-height:100vh; display:flex; flex-direction:column}
 
 /* ============ HUD ============ */
-/* Explicit areas, not auto-placement: the scenario name gets a row of its own. Sharing the middle column with the phase
-   track left it 0 px wide at a 1280 px viewport — present in the DOM, never visible on screen. */
 .hud{
-  position:sticky; top:0; z-index:20; margin:0 -18px; padding:8px 18px;
+  position:sticky; top:0; z-index:20; margin:0 -18px; padding:10px 18px;
   background:color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
   display:grid; grid-template-columns:auto 1fr auto auto auto; gap:14px; align-items:center;
-  grid-template-areas:"brand mid meter score tools" "scen scen scen scen scen";
-  row-gap:2px;
 }
-.hud .brand{grid-area:brand} .hud .mid{grid-area:mid} .hud .meter{grid-area:meter} .hud .score{grid-area:score} .hud .tools{grid-area:tools} .hud .scen{grid-area:scen}
 @supports not (background:color-mix(in srgb, red 50%, blue)){ .hud{background:var(--bg)} }
 .hud[hidden]{display:none}
 .hud .brand{font-family:var(--serif); font-weight:700; font-size:17px; color:var(--ink); text-decoration:none; white-space:nowrap; display:flex; align-items:center; gap:8px}
 .hud .brand .dot{width:22px; height:22px; border-radius:50%; background:var(--anchor-soft); border:2px solid var(--anchor); display:inline-grid; place-items:center; font-size:12px; color:var(--anchor)}
 .hud .brand small{font-family:var(--sans); font-weight:600; font-size:11.5px; color:var(--muted); margin-left:2px}
 .hud .mid{display:flex; align-items:center; gap:14px; justify-content:center; min-width:0}
-.hud .scen{font-size:12px; line-height:1.25; color:var(--muted); font-weight:600; text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0}
+.hud .scen{font-size:12.5px; color:var(--muted); font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .track{display:flex; gap:4px}
 .track span{
   width:30px; height:30px; border-radius:50%; display:grid; place-items:center;
@@ -40,13 +28,8 @@ body{overflow-x:hidden}
 .track span.done.c{border-color:var(--ai); color:var(--ai); background:var(--ai-soft)}
 .track span.cur{transform:scale(1.22); border-color:var(--ink); color:var(--ink); background:var(--surface); box-shadow:0 0 0 3px var(--anchor-soft)}
 .track span.given{border-color:var(--risk); color:var(--risk); background:var(--risk-soft)}
-/* min-width 210, not 150: at two digits each the counter reads "70 kept · 12 given", and with the label it exactly filled a
-   150 px box — the two spans touched and rendered as "PRACTICE POINTS70 kept". The gap keeps them apart at every count. */
-.hud .meter{display:flex; flex-direction:column; gap:3px; min-width:224px}
-.hud .meter .lab{display:flex; justify-content:space-between; gap:10px; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--muted)}
-/* The counter never shrinks or wraps; the label ellipsises first. Collision is then impossible at any width. */
-.hud .meter .lab .g{flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
-.hud .meter .lab #meterPct{flex:none; letter-spacing:.02em; white-space:nowrap; font-variant-numeric:tabular-nums}
+.hud .meter{display:flex; flex-direction:column; gap:3px; min-width:150px}
+.hud .meter .lab{display:flex; justify-content:space-between; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--muted)}
 .hud .meter .lab .g{color:var(--learner)} .hud .meter .lab .r{color:var(--risk)}
 .bar{height:8px; border-radius:999px; background:var(--risk-soft); overflow:hidden; position:relative}
 .bar i{display:block; height:100%; background:linear-gradient(90deg, var(--learner), color-mix(in srgb, var(--learner) 70%, #fff)); border-radius:999px; width:100%; transition:width .6s cubic-bezier(.2,.8,.2,1)}
@@ -63,11 +46,10 @@ body{overflow-x:hidden}
 @keyframes led{0%{box-shadow:0 0 0 0 color-mix(in srgb, var(--ai) 55%, transparent)} 70%{box-shadow:0 0 0 7px transparent} 100%{box-shadow:0 0 0 0 transparent}}
 .hud .askai.hot{background:var(--ai); color:#fff}
 @media (max-width:860px){
-  .hud{grid-template-columns:1fr auto; grid-template-areas:none; row-gap:8px}   /* narrow layout is placed explicitly further down */
-  .hud .mid{justify-content:space-between}
+  .hud{grid-template-columns:1fr auto; row-gap:8px}
+  .hud .mid{grid-column:1 / -1; justify-content:space-between}
   .hud .meter{min-width:0; flex:1}
-  .hud .scen{display:none}   /* the phase track carries the context on a phone; the name is on the intro screen and in the title */
-  .hud .brand small{display:none}   /* the full site name is in the title and the footer; the HUD keeps the short mark */
+  .hud .scen{display:none}
 }
 @media (max-width:520px){ .track span{width:26px; height:26px; font-size:12px} }
 
@@ -96,16 +78,8 @@ body{overflow-x:hidden}
 
 .two{display:grid; grid-template-columns:1fr 340px; gap:22px; align-items:start}
 @media (max-width:860px){ .two{grid-template-columns:1fr} }
-/* Static on purpose. The brief runs to about 1000 px — sketch, four givens, what-you-keep, deliverable, then the trail — so
-   pinning it would put two thirds of it permanently out of reach on a laptop. It scrolls with the page; the one line phase E
-   must keep in view while the second claim is judged is pinned on its own below. */
-.side{position:static}
-/* Phase E: the reply's own first sentence, pinned, so it stays readable while the second claim is judged. */
-.reply-pin{position:sticky; top:var(--hud-h); z-index:6; margin:0 0 12px; padding:8px 12px; border-radius:10px; font-size:13px; line-height:1.45;
-  background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--ai); color:var(--ink); box-shadow:var(--shadow)}
-.reply-pin b{font-family:var(--serif)}
-.reply-pin .pin-open{font:inherit; font-size:12px; font-weight:700; color:var(--ai); background:none; border:0; padding:0 0 0 6px; cursor:pointer; text-decoration:underline; white-space:nowrap}
-@media (max-width:860px){ .reply-pin{position:static} }
+.side{position:sticky; top:84px}
+@media (max-width:860px){ .side{position:static} }
 .brief{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:16px 18px; font-size:14px}
 .brief h4{margin:0 0 6px; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
 .brief ul{margin:0; padding-left:18px} .brief li{margin:2px 0}
@@ -388,7 +362,7 @@ textarea.free:focus{border-color:var(--learner)}
 .track span.leaky{border-color:var(--anchor); color:var(--anchor); background:var(--anchor-soft)}
 .own .row .bar.leaky i{background:var(--anchor)}
 .loss.soft{background:var(--anchor-soft)} .loss.soft b, .loss.soft .pts{color:var(--anchor)}
-.claim{scroll-margin-top:calc(var(--hud-h) + 12px)}
+.claim{scroll-margin-top:96px}
 .claim .verdicts .vlab{align-self:center; font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--muted); margin-right:4px}
 .claim.uninv{border-style:dashed; border-color:var(--anchor)}
 .claim.uninv .n{color:var(--anchor)}
@@ -413,19 +387,16 @@ textarea.free:focus{border-color:var(--learner)}
 .intro .goal.keep{background:var(--learner-soft); border-left-color:var(--learner)}
 .brief .note.keep b{color:var(--learner)}
 .debrief-sub{font-size:15.5px; color:var(--muted); margin:0 0 18px}
-/* Every rule here is scoped to .dims. Bare `.dim` also matches an answered option button — the game adds the class `dim` to
-   mean "dimmed" — and an unscoped rule was overriding those buttons' 48 px left padding down to 16 px, dropping the number
-   chip on top of the option's first word on every screen after an answer. */
 .dims{display:grid; gap:8px; margin-top:10px}
-.dims .dim{display:grid; grid-template-columns:1fr; gap:2px; padding:10px 12px 10px 16px; border-radius:10px; background:var(--chip); border-left:4px solid var(--line); font-size:14px; opacity:1}
-.dims .dim .dlab{font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--muted)}
-.dims .dim .dstate{font-weight:650}
-.dims .dim .dev{font-size:12.8px; color:var(--muted)}
-.dims .dim.yes{border-left-color:var(--learner); background:var(--learner-soft)} .dims .dim.yes .dstate{color:var(--learner)}
-.dims .dim.partial{border-left-color:var(--anchor); background:var(--anchor-soft)} .dims .dim.partial .dstate{color:var(--anchor)}
-.dims .dim.no{border-left-color:var(--risk); background:var(--risk-soft)} .dims .dim.no .dstate{color:var(--risk)}
-.dims .dim.na{border-left-color:var(--line); background:var(--chip)} .dims .dim.na .dstate{color:var(--muted)}
-@media (min-width:640px){ .dims .dim{grid-template-columns:210px 1fr; column-gap:14px} .dims .dim .dlab{align-self:center} .dims .dim .dev{grid-column:2} }
+.dim{display:grid; grid-template-columns:1fr; gap:2px; padding:10px 12px 10px 16px; border-radius:10px; background:var(--chip); border-left:4px solid var(--line); font-size:14px}
+.dim .dlab{font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--muted)}
+.dim .dstate{font-weight:650}
+.dim .dev{font-size:12.8px; color:var(--muted)}
+.dim.yes{border-left-color:var(--learner); background:var(--learner-soft)} .dim.yes .dstate{color:var(--learner)}
+.dim.partial{border-left-color:var(--anchor); background:var(--anchor-soft)} .dim.partial .dstate{color:var(--anchor)}
+.dim.no{border-left-color:var(--risk); background:var(--risk-soft)} .dim.no .dstate{color:var(--risk)}
+.dim.na{border-left-color:var(--line); background:var(--chip)} .dim.na .dstate{color:var(--muted)}
+@media (min-width:640px){ .dim{grid-template-columns:210px 1fr; column-gap:14px} .dim .dlab{align-self:center} .dim .dev{grid-column:2} }
 .tech-list{display:grid; gap:6px; margin-top:8px}
 .tech{display:grid; grid-template-columns:auto 1fr; gap:10px; align-items:start; font-size:14px; padding:8px 12px; border-radius:10px; background:var(--anchor-soft)}
 .tech code{font-family:var(--mono); font-size:12px; color:var(--anchor); background:var(--surface); padding:2px 6px; border-radius:6px; white-space:nowrap}
@@ -445,11 +416,6 @@ details.reply-full summary:focus-visible{outline:2px solid var(--ai); outline-of
 .mytrail details.reply-full .q{font-family:var(--mono); font-size:12px; background:var(--chip); border-radius:8px; padding:6px 8px; margin-top:4px; white-space:pre-wrap; border-top:none}
 .panel.reply-full{margin:0 0 14px; border:1px solid var(--line); border-radius:14px; padding:8px 12px; background:var(--surface)}
 .panel.reply-full .chat{margin-top:8px}
-/* Phase C: the learner's attempt, attached to the request ONCE above the options instead of restated inside each one. */
-details.attach{margin:0 0 12px; border:1px solid var(--line); border-radius:14px; padding:8px 12px; background:var(--surface)}
-details.attach summary{cursor:pointer; font-size:12.5px; color:var(--ai); font-weight:700; letter-spacing:.04em}
-details.attach summary:focus-visible{outline:2px solid var(--ai); outline-offset:2px; border-radius:4px}
-details.attach .q{font-family:var(--mono); font-size:12.6px; background:var(--chip); border-radius:8px; padding:8px 10px; margin-top:8px; white-space:pre-wrap}
 .msg.bot .line{margin-top:6px}
 .msg.bot .who + .line{margin-top:0}
 .msg.bot .foot-note{margin-top:8px; font-size:12.5px; color:var(--muted)}
@@ -482,7 +448,7 @@ details.attach .q{font-family:var(--mono); font-size:12.6px; background:var(--ch
   .hud .askai, .hud .evid{padding-inline:10px}
 }
 .two > *{min-width:0}
-.worked .q, .tr .q, .dims .dim .dev{overflow-wrap:anywhere}
+.worked .q, .tr .q, .dim .dev{overflow-wrap:anywhere}
 .track span.ret{position:relative}
 .track span.ret::after{content:'↩'; position:absolute; right:-7px; top:-7px; width:15px; height:15px; border-radius:50%; background:var(--ai); color:#fff; font:700 10px/15px var(--sans); text-align:center}
 
@@ -547,7 +513,10 @@ input.free:focus{border-color:var(--learner)}
 .plan-fields label{display:grid; gap:4px}
 .plan-fields label > span{font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--muted)}
 .plan-fields textarea.free{min-height:0}
-/* .example — the plan screen's self-check block — retired when the three fields folded into the debrief; the placeholders model the answers in place. */
+.example{margin:14px 0; padding:12px 14px; border-radius:12px; background:var(--anchor-soft); border-left:4px solid var(--anchor); font-size:14px}
+.example .lbl{font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--anchor); margin-bottom:6px}
+.example div{margin:3px 0}
+.example .note{margin:8px 0 0; font-size:13px; color:var(--muted)}
 .plan-box .note{font-size:13px; color:var(--muted); margin:0 0 8px}
 .plan-box .plan{font-style:normal; font-family:var(--sans); font-size:15px}
 .plan-box .plan div{margin:4px 0}
@@ -564,10 +533,7 @@ input.free:focus{border-color:var(--learner)}
   .hud, .pops, .confetti, .actions, .tray, .gapbar, .repair .btn, .modal-bg, .keep-note{display:none !important}
   body, .stage, .brief, .mytrail, .rank{background:#fff !important; color:#000 !important; box-shadow:none}
   .two{grid-template-columns:1fr}
-  .tr, .claim, .dims .dim{break-inside:avoid}
-  details.reply-full, details.reply-full > *, details.attach, details.attach > *{display:block} details.reply-full summary, details.attach summary{display:none}
+  .tr, .claim, .dim{break-inside:avoid}
+  details.reply-full, details.reply-full > *{display:block} details.reply-full summary{display:none}
   .reply-full, .q{display:block}
 }
-
-.title .scen-art{background:var(--bg); border:1px solid var(--line); border-radius:14px; padding:10px}
-.title .scen-art svg{width:100%; height:auto; display:block}

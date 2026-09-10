@@ -1,7 +1,7 @@
-# P-FACET for Simple Fluid Mechanics
+# P-FACET for Fluid Mechanics
 
-A three-page learning website featuring Flowline: a single fluid mechanics scenario using the six-phase P-FACET routine.
+Video, learner take-away and Flowline practice game.
 
-Live site: https://yupei2023.github.io/p-facet-fluid-mechanics/
+Website: https://yupei2023.github.io/p-facet-fluid-mechanics/
 
-GitHub Pages publishes the `docs/` directory from `main`.
+Published files are in docs/.

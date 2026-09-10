@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>P-FACET for Fluid Mechanics</title>
-<meta name="description" content="A six-phase routine for using AI in fluid mechanics without handing over the thinking. Watch the 4-minute video, play Flowline, print the one-page take-away.">
+<title>P-FACET for Simple Fluid Mechanics</title>
+<meta name="description" content="A six-phase routine for using AI in fluid mechanics without handing over the thinking. Watch the 3:44 video, play Flowline in about 9 minutes, print the one-page take-away.">
 <link rel="stylesheet" href="assets/site.css">
 <style>
   main{max-width:1040px; margin:0 auto; padding:0 24px}
@@ -35,8 +35,11 @@
   .cta .btn{font-size:16px; padding:16px 24px}
 
   /* the video, in the hero's right column */
-  .video-wrap{border-radius:16px; overflow:hidden; background:#0f0e0c; box-shadow:var(--shadow); border:1px solid var(--line)}
-  .video-wrap iframe{display:block; width:100%; height:auto; aspect-ratio:16/9; border:0; background:#0f0e0c}
+  .video-wrap{position:relative; display:block; border-radius:16px; overflow:hidden; background:#0f0e0c; box-shadow:var(--shadow); border:1px solid var(--line)}
+  .video-wrap img{display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:cover}
+  .video-wrap .play{position:absolute; inset:0; display:grid; place-items:center; background:rgba(15,14,12,.18); transition:background .25s ease}
+  .video-wrap .play i{width:66px; height:66px; border-radius:50%; background:rgba(255,255,255,.94); display:grid; place-items:center; box-shadow:0 6px 20px rgba(0,0,0,.35); font-style:normal; font-size:24px; color:#0f0e0c; padding-left:5px}
+  .video-wrap:hover .play, .video-wrap:focus-visible .play{background:rgba(15,14,12,.05)}
   .video-note{display:flex; gap:4px 16px; flex-wrap:wrap; margin-top:12px; font-size:var(--fs-small); line-height:1.5; color:var(--muted)}
   .video-note span::before{content:"· "; color:var(--anchor)}
   .video-note span:first-child::before{content:""}
@@ -119,7 +122,7 @@
 <body>
 
 <nav class="nav" aria-label="Site">
-  <a class="brand" href="index.html"><span class="dot" aria-hidden="true">P</span>P-FACET for Fluid Mechanics</a>
+  <a class="brand" href="index.html"><span class="dot" aria-hidden="true">P</span>P-FACET for Simple Fluid Mechanics</a>
   <div class="links">
     <a href="index.html" aria-current="page">Home</a>
     <a href="takeaway.html">Take-away</a>
@@ -135,16 +138,17 @@
         <h1>When AI helps you, <em>who is doing the thinking?</em></h1>
         <p class="lede">P-FACET is a six-phase routine for using AI on fluids problems without giving away the thinking. <b class="g">Five phases are yours.</b> <b class="b">AI enters at exactly one.</b></p>
         <div class="cta">
-          <a class="btn primary" href="game.html">Play the game · ~15 min</a>
+          <a class="btn primary" href="game.html">Play the game · ~9 min</a>
           <a class="btn anchor" href="takeaway.html">Get the one-page take-away</a>
         </div>
       </div>
       <div class="media">
-        <div class="video-wrap">
-          <iframe src="https://www.youtube-nocookie.com/embed/TLA_h0yHC8c?rel=0&cc_load_policy=1" title="P-FACET — Plato Edition (explainer video)" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>
+        <a class="video-wrap" href="https://youtu.be/TLA_h0yHC8c" target="_blank" rel="noopener">
+          <img src="assets/poster.png" alt="P-FACET: the explainer video, on YouTube" width="1920" height="1080" loading="lazy">
+          <span class="play" aria-hidden="true"><i>▶</i></span>
+        </a>
         <div class="video-note">
-          <span>3:44 · <a href="https://youtu.be/TLA_h0yHC8c">open on YouTube</a></span>
+          <span>3:44 · watch on YouTube — <a href="https://youtu.be/TLA_h0yHC8c">youtu.be/TLA_h0yHC8c</a></span>
           <span>Music: Deliberate Thought by Kevin MacLeod (incompetech.com), CC BY 4.0</span>
         </div>
       </div>
@@ -164,7 +168,7 @@
     <div class="model">
       <div>
         <div class="phases" id="phaseList">
-          <div class="phase p" data-k="P"><span class="lt">P</span><div><h3>Problem-Centered Challenge <span class="who">You</span></h3><p>Anchor the work in something real: a culvert that floods a road.</p></div></div>
+          <div class="phase p" data-k="P"><span class="lt">P</span><div><h3>Problem-Centered Challenge <span class="who">You</span></h3><p>Anchor the work in something real: a hydrant test that must not pull the main below its pressure floor.</p></div></div>
           <div class="phase" data-k="F"><span class="lt">F</span><div><h3>Frame <span class="who">You</span></h3><p>Decide what good looks like: criteria, constraints.</p></div></div>
           <div class="phase" data-k="A"><span class="lt">A</span><div><h3>Analogize &amp; Attempt <span class="who">You</span></h3><p>Connect what you know and try it first. That draft is yours.</p></div></div>
           <div class="phase c" data-k="C"><span class="lt">C</span><div><h3>Consult &amp; Construct <span class="who">You + AI</span></h3><p>Now, and only now, bring in AI — to critique, not to solve. You set the boundary.</p></div></div>
@@ -213,7 +217,7 @@
     <div class="three">
       <div class="card mech"><h3>Mechanical</h3><p>Side work, not what you're learning.</p><div class="ex"><b>Fine:</b> "Convert these five values to m³/s" — unless units are what you're practicing.</div></div>
       <div class="card sup"><h3>Supportive</h3><p>Sharpens thinking you already did.</p><div class="ex"><b>Better:</b> "Here's my setup. Flag any error — the fix is mine."</div></div>
-      <div class="card sub"><h3>Substitutive</h3><p>The central thinking, done by AI.</p><div class="ex"><b>Costly:</b> "Size the culvert and show all steps."</div></div>
+      <div class="card sub"><h3>Substitutive</h3><p>The central thinking, done by AI.</p><div class="ex"><b>Costly:</b> "Find the pressure and tell me whether the test can run — show all steps."</div></div>
     </div>
   </section>
 
@@ -224,9 +228,9 @@
     </div>
     <div class="paths">
       <a class="path game" href="game.html" style="text-decoration:none; color:inherit">
-        <span class="time">~15 min</span>
+        <span class="time">~9 min</span>
         <h3>Flowline</h3>
-        <p>Three hydraulics problems — crane barge, water main, storm culvert — and an AI assistant that is helpful, confident, and sometimes wrong. Keep the thinking yours; catch its mistakes.</p>
+        <p>One hydraulics problem, start to finish: a fire-hydrant flow test on a new street main, and an AI assistant that is helpful, confident, and wrong about the one thing that decides the answer. Keep the thinking yours; catch its mistake.</p>
         <span class="btn primary">Start playing →</span>
       </a>
       <a class="path take" href="takeaway.html" style="text-decoration:none; color:inherit">

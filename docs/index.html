@@ -3,168 +3,74 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>P-FACET for Fluid Mechanics</title>
-<meta name="description" content="A six-phase routine for using AI in fluid mechanics without handing over the thinking. Watch the 4-minute video, play Flowline, print the one-page take-away.">
-<link rel="stylesheet" href="assets/site.css">
-<style>
-  main{max-width:1040px; margin:0 auto; padding:0 24px}
-
-  /* ---------- hero ---------- */
-  .hero{
-    position:relative; overflow:hidden; border-radius:22px; margin-top:8px;
-    background:var(--surface); border:1px solid var(--line); box-shadow:var(--shadow);
-    padding:28px clamp(24px,5vw,56px) 32px;
-  }
-  .hero::before{
-    content:""; position:absolute; inset:0; pointer-events:none;
-    background-image:linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-    background-size:28px 28px; mask-image:linear-gradient(180deg, rgba(0,0,0,.8), transparent 85%);
-    -webkit-mask-image:linear-gradient(180deg, rgba(0,0,0,.8), transparent 85%);
-  }
-  .hero .inner{position:relative; z-index:1; display:grid; grid-template-columns:1fr 1.15fr; gap:40px; align-items:center}
-  @media (max-width:820px){ .hero .inner{grid-template-columns:1fr; gap:24px} .hero .media{order:-1} }
-  .hero h1{
-    font-family:var(--serif); font-weight:600; line-height:1.05; margin:12px 0;
-    font-size:clamp(32px,4vw,46px); text-wrap:balance; letter-spacing:-.01em;
-  }
-  @media (max-width:600px){ .hero h1{font-size:30px} }
-  .hero h1 em{font-style:italic; color:var(--anchor)}
-  .hero .lede{font-size:var(--fs-lead); line-height:1.5; max-width:56ch; color:var(--ink); margin:0 0 24px}
-  .hero .lede b.g{color:var(--learner)} .hero .lede b.b{color:var(--ai-text)}
-  .cta{display:flex; gap:12px; flex-wrap:wrap}
-  .cta .btn{font-size:16px; padding:16px 24px}
-
-  /* the video, in the hero's right column */
-  .video-wrap{border-radius:16px; overflow:hidden; background:#0f0e0c; box-shadow:var(--shadow); border:1px solid var(--line)}
-  .video-wrap iframe{display:block; width:100%; height:auto; aspect-ratio:16/9; border:0; background:#0f0e0c}
-  .video-note{display:flex; gap:4px 16px; flex-wrap:wrap; margin-top:12px; font-size:var(--fs-small); line-height:1.5; color:var(--muted)}
-  .video-note span::before{content:"· "; color:var(--anchor)}
-  .video-note span:first-child::before{content:""}
-
-  /* waves */
-  .waves{position:absolute; left:0; right:0; bottom:-2px; height:40px; pointer-events:none; color:var(--water-soft)}
-  .waves svg{width:200%; height:100%; display:block; animation:drift 14s linear infinite}
-  .waves svg.back{position:absolute; inset:0; opacity:.55; animation-duration:22s; animation-direction:reverse}
-  @keyframes drift{from{transform:translateX(0)} to{transform:translateX(-50%)}}
-
-  /* the model wheel */
-  .wheel{width:min(100%,380px); margin:0 auto; display:block}
-  .wheel .node circle{transition:stroke-width .4s ease, filter .4s ease}
-  .wheel .node.lit circle{stroke-width:5; filter:drop-shadow(0 0 6px currentColor)}
-  .wheel .node.lit text{font-weight:700}
-  .wheel .arc{stroke-dasharray:6 6; opacity:.5; animation:arcflow 30s linear infinite}
-  @keyframes arcflow{to{stroke-dashoffset:-600}}
-  .wheel .aibubble{opacity:0; transform-origin:center; transition:opacity .35s ease, transform .35s ease; transform:scale(.7)}
-  .wheel .aibubble.on{opacity:1; transform:scale(1)}
-  /* phones: the wheel scales to ~0.73, so its 14px captions would render near 10px — hide the words (the full names
-     sit in the list right above) and enlarge the "AI here" label so it still renders at ≥ 14px */
-  @media (max-width:480px){ .wheel .node text.word{display:none} .wheel .aibubble text{font-size:20px} }
-
-  /* ---------- sections ---------- */
-  section{margin-top:clamp(56px,8vw,96px)}
-  .sec-head{max-width:var(--measure)}
-  h2{font-family:var(--serif); font-weight:600; font-size:clamp(26px,3.2vw,36px); line-height:1.2; margin:0 0 12px; text-wrap:balance}
-  .sec-head p{color:var(--ink); margin:0; max-width:var(--measure)}
-  .sec-head p b.a{color:var(--anchor-text)}
-
-  /* model grid */
-  .model{display:grid; grid-template-columns:1.05fr 1fr; gap:32px; align-items:start; margin-top:24px}
-  @media (max-width:860px){ .model{grid-template-columns:1fr} }
-  .phases{display:grid; gap:12px}
-  .phase{
-    display:grid; grid-template-columns:44px 1fr; gap:16px; align-items:start;
-    padding:16px; border-radius:12px; border:1px solid var(--line); background:var(--surface);
-    border-left:5px solid var(--learner); transition:transform .25s ease, box-shadow .25s ease;
-  }
-  .phase.p{border-left-color:var(--anchor)} .phase.c{border-left-color:var(--ai)}
-  .phase.lit{transform:translateX(6px); box-shadow:var(--shadow)}
-  .phase .lt{font-family:var(--serif); font-size:28px; font-weight:700; color:var(--learner); line-height:1}
-  .phase.p .lt{color:var(--anchor)} .phase.c .lt{color:var(--ai)}
-  .phase h3{margin:0 0 4px; font-size:var(--fs-h3); font-weight:650; line-height:1.3}
-  .phase p{margin:0; color:var(--ink)}
-  .phase .who{font-size:var(--fs-label); letter-spacing:.06em; text-transform:uppercase; font-weight:700; line-height:1.3; color:var(--learner); margin-left:8px}
-  .phase.p .who{color:var(--anchor-text)} .phase.c .who{color:var(--ai-text)}
-  .model-note{margin-top:16px; padding:16px; border-radius:12px; background:var(--ai-soft); border-left:4px solid var(--ai); max-width:var(--measure)}
-  .model-note b{color:var(--ai-text)}
-  .wheel-card{position:sticky; top:20px; background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:24px; box-shadow:var(--shadow)}
-  .wheel-card .cap{font-size:var(--fs-small); line-height:1.5; color:var(--muted); text-align:center; margin:12px 0 0}
-  .wheel-card .cap b{color:var(--ink)}
-
-  /* offloading strip */
-  .three{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:24px}
-  @media (max-width:760px){ .three{grid-template-columns:1fr} }
-  .three .card{border-top:5px solid var(--learner)}
-  .three .card.sup{border-top-color:var(--ai)} .three .card.sub{border-top-color:var(--risk)}
-  .three h3{margin:0 0 8px; font-family:var(--serif); font-size:22px; font-weight:600}
-  .three .card.mech h3{color:var(--learner)} .three .card.sup h3{color:var(--ai-text)} .three .card.sub h3{color:var(--risk)}
-  .three p{margin:0; color:var(--ink)}
-  .three .ex{margin-top:12px; font-size:var(--fs-small); line-height:1.5; color:var(--ink)}
-  .three .ex b{font-weight:650}
-
-  /* paths */
-  .paths{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:24px}
-  @media (max-width:760px){ .paths{grid-template-columns:1fr} }
-  .path{position:relative; overflow:hidden; padding:24px 24px 28px; border-radius:18px; border:1px solid var(--line); background:var(--surface); box-shadow:var(--shadow)}
-  .path .time{display:inline-block; font-size:var(--fs-label); letter-spacing:.06em; text-transform:uppercase; line-height:1.3; font-weight:700; color:var(--ink); background:var(--chip); padding:4px 12px; border-radius:999px; margin-bottom:12px}
-  .path h3{font-family:var(--serif); font-size:22px; margin:0 0 8px; font-weight:600}
-  .path p{margin:0 0 16px; color:var(--ink); max-width:44ch}
-  .path.game{background:linear-gradient(160deg, var(--learner-soft), var(--surface) 65%)}
-  .path.take{background:linear-gradient(160deg, var(--anchor-soft), var(--surface) 65%)}
-
-  .closing{margin-top:clamp(56px,8vw,96px); text-align:center}
-  .closing p{font-family:var(--serif); font-size:clamp(24px,3.4vw,34px); font-style:italic; margin:0 auto; color:var(--ink); max-width:28ch; text-wrap:balance; line-height:1.25}
-  .closing p b{font-style:normal; color:var(--anchor)}
-</style>
+<title>P-FACET for Simple Fluid Mechanics</title>
+<meta name="description" content="A six-phase routine for using AI in fluid mechanics without handing over the thinking. Watch the 3:44 video, play Flowline in an estimated 9 minutes (not yet timed with students), print the one-page take-away.">
+<link rel="preload" href="assets/fonts/Lora.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/fonts/Geologica.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="assets/site.css?v=7">
+<link rel="stylesheet" href="assets/overview.css?v=6">
+<link rel="alternate" hreflang="en" href="index.html">
+<link rel="alternate" hreflang="zh-CN" href="zh/index.html">
 </head>
-<body>
+<body class="overview-page">
+<a class="skip-link" href="#main">Skip to content</a>
 
-<nav class="nav" aria-label="Site">
-  <a class="brand" href="index.html"><span class="dot" aria-hidden="true">P</span>P-FACET for Fluid Mechanics</a>
-  <div class="links">
-    <a href="index.html" aria-current="page">Home</a>
+<header class="site-header">
+  <a class="project-identity" href="index.html" aria-label="P-FACET for Fluid Mechanics overview"><strong>P-FACET</strong><span>Fluid Mechanics</span></a>
+  <nav class="project-nav" aria-label="Project navigation">
+    <a href="index.html" aria-current="page">Overview</a>
     <a href="takeaway.html">Take-away</a>
-    <a class="play" href="game.html">Play Flowline →</a>
-  </div>
-</nav>
+    <a class="nav-play" href="game.html">Flowline <span aria-hidden="true">→</span></a>
+    <a class="language-switch" hidden href="zh/index.html" lang="zh-CN" hreflang="zh-CN">中文</a>
+  </nav>
+</header>
 
-<main>
+<main id="main" tabindex="-1">
   <header class="hero">
     <div class="inner">
       <div>
-        <div class="eyebrow">A routine for learning fluid mechanics with generative AI</div>
+        <div class="eyebrow">P-FACET / Fluid mechanics</div>
         <h1>When AI helps you, <em>who is doing the thinking?</em></h1>
         <p class="lede">P-FACET is a six-phase routine for using AI on fluids problems without giving away the thinking. <b class="g">Five phases are yours.</b> <b class="b">AI enters at exactly one.</b></p>
         <div class="cta">
-          <a class="btn primary" href="game.html">Play the game · ~15 min</a>
-          <a class="btn anchor" href="takeaway.html">Get the one-page take-away</a>
+          <a class="btn primary" href="game.html">Play the game · ~9 min · estimate</a>
+          <a class="btn text-link" href="takeaway.html">Get the one-page take-away</a>
         </div>
       </div>
+
+    </div>
+  </header>
+
+
+  <section class="introduction" id="introduction" aria-labelledby="introduction-title">
+    <div class="sec-head">
+      <p class="eyebrow">Introduction video</p>
+      <h2 id="introduction-title">Meet the model.</h2>
+      <p>A short introduction to keeping essential thinking learner-owned while making room for purposeful AI support.</p>
+    </div>
       <div class="media">
-        <div class="video-wrap">
-          <iframe src="https://www.youtube-nocookie.com/embed/TLA_h0yHC8c?rel=0&cc_load_policy=1" title="P-FACET — Plato Edition (explainer video)" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>
+        <a class="video-wrap" href="https://youtu.be/TLA_h0yHC8c" target="_blank" rel="noopener">
+          <img src="assets/poster.png" alt="P-FACET: the explainer video, on YouTube" width="1920" height="1080" loading="lazy">
+          <span class="play" aria-hidden="true"><i>▶</i></span>
+        </a>
         <div class="video-note">
-          <span>3:44 · <a href="https://youtu.be/TLA_h0yHC8c">open on YouTube</a></span>
+          <span>3:44 · watch on YouTube — <a href="https://youtu.be/TLA_h0yHC8c">youtu.be/TLA_h0yHC8c</a></span>
           <span>Music: Deliberate Thought by Kevin MacLeod (incompetech.com), CC BY 4.0</span>
         </div>
       </div>
-    </div>
-    <div class="waves" aria-hidden="true">
-      <svg class="back" viewBox="0 0 1200 70" preserveAspectRatio="none"><path fill="currentColor" d="M0,40 C150,10 300,70 450,40 C600,10 750,70 900,40 C1050,10 1200,70 1350,40 L1350,70 L0,70 Z" transform="scale(1,1)"/></svg>
-      <svg viewBox="0 0 1200 70" preserveAspectRatio="none"><path fill="currentColor" d="M0,45 C100,20 200,70 300,45 C400,20 500,70 600,45 C700,20 800,70 900,45 C1000,20 1100,70 1200,45 L1200,70 L0,70 Z"/></svg>
-    </div>
-  </header>
+  </section>
 
   <!-- ============ the model ============ -->
   <section id="model">
     <div class="sec-head">
+      <p class="eyebrow">The model</p>
       <h2>Six phases, one loop.</h2>
       <p><b class="a">P</b> sits at the center; <b class="g">F-A-C-E-T</b> loop around it.</p>
     </div>
     <div class="model">
       <div>
         <div class="phases" id="phaseList">
-          <div class="phase p" data-k="P"><span class="lt">P</span><div><h3>Problem-Centered Challenge <span class="who">You</span></h3><p>Anchor the work in something real: a culvert that floods a road.</p></div></div>
+          <div class="phase p" data-k="P"><span class="lt">P</span><div><h3>Problem-Centered Challenge <span class="who">You</span></h3><p>Anchor the work in something real: a hydrant test that must not pull the main below its pressure floor.</p></div></div>
           <div class="phase" data-k="F"><span class="lt">F</span><div><h3>Frame <span class="who">You</span></h3><p>Decide what good looks like: criteria, constraints.</p></div></div>
           <div class="phase" data-k="A"><span class="lt">A</span><div><h3>Analogize &amp; Attempt <span class="who">You</span></h3><p>Connect what you know and try it first. That draft is yours.</p></div></div>
           <div class="phase c" data-k="C"><span class="lt">C</span><div><h3>Consult &amp; Construct <span class="who">You + AI</span></h3><p>Now, and only now, bring in AI — to critique, not to solve. You set the boundary.</p></div></div>
@@ -208,32 +114,34 @@
   <!-- ============ offloading ============ -->
   <section id="offloading">
     <div class="sec-head">
+      <p class="eyebrow">Three kinds of offloading</p>
       <h2>Handing work to a tool isn't bad. Handing over the <em class="serif">work you were meant to learn</em> is.</h2>
     </div>
     <div class="three">
       <div class="card mech"><h3>Mechanical</h3><p>Side work, not what you're learning.</p><div class="ex"><b>Fine:</b> "Convert these five values to m³/s" — unless units are what you're practicing.</div></div>
       <div class="card sup"><h3>Supportive</h3><p>Sharpens thinking you already did.</p><div class="ex"><b>Better:</b> "Here's my setup. Flag any error — the fix is mine."</div></div>
-      <div class="card sub"><h3>Substitutive</h3><p>The central thinking, done by AI.</p><div class="ex"><b>Costly:</b> "Size the culvert and show all steps."</div></div>
+      <div class="card sub"><h3>Substitutive</h3><p>The central thinking, done by AI.</p><div class="ex"><b>Costly:</b> "Find the pressure and tell me whether the test can run — show all steps."</div></div>
     </div>
   </section>
 
   <!-- ============ paths ============ -->
   <section id="go">
     <div class="sec-head">
-      <h2>Two ways in</h2>
+      <p class="eyebrow">Put it into practice</p>
+      <h2>Two ways in.</h2>
     </div>
     <div class="paths">
       <a class="path game" href="game.html" style="text-decoration:none; color:inherit">
-        <span class="time">~15 min</span>
+        <span class="time">~9 min · estimate</span>
         <h3>Flowline</h3>
-        <p>Choose a crane barge, water main, or storm culvert game, or play all three. Work with an AI assistant that is helpful, confident, and sometimes wrong. Keep the thinking yours; catch its mistakes.</p>
-        <span class="btn primary">Start playing →</span>
+        <p>One hydraulics problem, start to finish: a fire-hydrant flow test on a new street main, and an AI assistant that is helpful, confident, and wrong about the one thing that decides the answer. Keep the thinking yours; catch its mistake.</p>
+        <span class="path-link">Start playing <span aria-hidden="true">→</span></span>
       </a>
       <a class="path take" href="takeaway.html" style="text-decoration:none; color:inherit">
         <span class="time">Printable</span>
         <h3>The one-page take-away</h3>
         <p>Six phases in six lines, two prompts to paste, what AI gets wrong on fluids, the one hand-off test.</p>
-        <span class="btn anchor">Open the take-away →</span>
+        <span class="path-link">Open the take-away <span aria-hidden="true">→</span></span>
       </a>
     </div>
   </section>
@@ -246,7 +154,7 @@
 <footer class="site-footer">
   <p class="credit">The P-FACET Model © Yupei Duan &amp; Danielle Oprean, University of Missouri.</p>
   <p>Music: Deliberate Thought by Kevin MacLeod (incompetech.com), CC BY 4.0</p>
-  <p>Model home: <a href="https://yupei2023.github.io/p-facet">yupei2023.github.io/p-facet</a> · <a href="takeaway.html">Take-away</a> · <a href="game.html">Flowline</a></p>
+  <p><a href="https://yupei2023.github.io/p-facet">About the P-FACET model</a> · <a href="takeaway.html">Take-away</a> · <a href="game.html">Flowline</a></p>
 </footer>
 
 <script>

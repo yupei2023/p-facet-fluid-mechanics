@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flowline · P-FACET：简明流体力学</title>
+<meta name="description" content="Flowline 中文版：用 P-FACET 六阶段流程完成消火栓流量测试问题，在 AI 支持下保留关键思考。">
+<link rel="preload" href="../assets/fonts/Lora.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="../assets/fonts/Geologica.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="../assets/site.css?v=7">
+<link rel="stylesheet" href="../game.css?v=6">
+<link rel="stylesheet" href="../assets/zh.css?v=1">
+<link rel="alternate" hreflang="en" href="../game.html">
+<link rel="alternate" hreflang="zh-CN" href="../zh/game.html">
+</head>
+<body class="flowline-page">
+<a class="skip-link" href="#stage">跳至正文</a>
+<div id="app">
+<header class="site-header">
+  <a class="project-identity" href="index.html" aria-label="P-FACET 流体力学概览"><strong>P-FACET</strong><span>流体力学</span></a>
+  <nav class="project-nav" aria-label="项目导航">
+    <a href="index.html">概览</a>
+    <a href="takeaway.html">学习速查单</a>
+    <a class="nav-play" href="game.html" aria-current="page">Flowline <span aria-hidden="true">→</span></a>
+    <a class="language-switch" href="../game.html" lang="en" hreflang="en">English</a>
+  </nav>
+</header>
+  <header class="hud" id="hud" hidden>
+    <a class="brand" id="homeLink" href="index.html" title="返回项目概览"><span class="dot" aria-hidden="true">P</span>Flowline <small>P-FACET：简明流体力学</small></a>
+    <div class="mid">
+      <div class="track" id="track" aria-label="阶段进度" role="img"></div>
+    </div>
+    <div class="meter" aria-label="保留与交出的练习积分">
+      <div class="lab"><span class="g">练习积分</span><span id="meterPct">保留 0 · 交出 0</span></div>
+      <div class="bar"><i id="meterBar"></i></div>
+    </div>
+    <div class="score" aria-live="polite"><b id="scoreNum">0</b><small>练习得分</small></div>
+    <div class="tools">
+      <button class="askai" id="askAI" type="button" aria-label="咨询 AI"><span class="led" aria-hidden="true"></span>咨询 AI</button>
+      <button class="evid" id="evidenceBtn" type="button" aria-controls="tray" aria-expanded="false" title="进入 A 阶段后可用" disabled>证据</button>
+    </div>
+    <!-- Its own row. On one row the five fixed blocks starve the middle column and the name renders at zero width. -->
+    <span class="scen" id="scenLabel">Flowline</span>
+  </header>
+
+  <main class="stage" id="stage" tabindex="-1"></main>
+
+  <footer class="game-footer">
+    <p class="credit">P-FACET 模型 © Yupei Duan 与 Danielle Oprean，密苏里大学。</p>
+      <p><a href="index.html">概览</a> · <a href="takeaway.html">学习速查单</a> · <a href="https://yupei2023.github.io/p-facet">关于 P-FACET 模型（英文）</a></p>
+  </footer>
+</div>
+<aside id="tray" class="tray" hidden aria-label="证据面板"></aside>
+<div class="pops" id="pops" aria-hidden="true"></div>
+<script src="game.js?v=5"></script>
+</body>
+</html>

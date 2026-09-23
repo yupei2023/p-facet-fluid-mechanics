@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>学习速查单 · P-FACET：简明流体力学</title>
+<meta name="description" content="一页可打印的中文学习速查单：P-FACET 六个阶段、两条提示词与流体力学常见核查要点。">
+<link rel="preload" href="../assets/fonts/Lora.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="../assets/fonts/Geologica.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="../assets/site.css?v=7">
+<link rel="stylesheet" href="../assets/takeaway.css?v=6">
+<link rel="stylesheet" href="../assets/zh.css?v=1">
+<link rel="alternate" hreflang="en" href="../takeaway.html">
+<link rel="alternate" hreflang="zh-CN" href="../zh/takeaway.html">
+</head>
+<body class="takeaway-page">
+<a class="skip-link" href="#main">跳至正文</a>
+
+<header class="site-header">
+  <a class="project-identity" href="index.html" aria-label="P-FACET 流体力学概览"><strong>P-FACET</strong><span>流体力学</span></a>
+  <nav class="project-nav" aria-label="项目导航">
+    <a href="index.html">概览</a>
+    <a href="takeaway.html" aria-current="page">学习速查单</a>
+    <a class="nav-play" href="game.html">Flowline <span aria-hidden="true">→</span></a>
+    <a class="language-switch" href="../takeaway.html" lang="en" hreflang="en">English</a>
+  </nav>
+</header>
+
+<main id="main" tabindex="-1">
+  <header class="top">
+    <p class="eyebrow no-print">P-FACET / 学习速查单</p>
+    <h1>AI 辅助流体力学学习，<em>思考仍由你完成</em></h1>
+    <p class="lede"><b class="g">绿色阶段由你主导；</b> <b class="b">AI 仅在蓝色的 C 阶段直接介入。</b></p>
+    <div class="strip">
+      <span class="tile p"><b class="lt">P</b><small>问题</small></span>
+      <span class="tile"><b class="lt">F</b><small>界定问题</small></span>
+      <span class="tile"><b class="lt">A</b><small>尝试</small></span>
+      <span class="tile c"><b class="lt">C</b><small>咨询</small></span>
+      <span class="tile"><b class="lt">E</b><small>评价</small></span>
+      <span class="tile"><b class="lt">T</b><small>迁移</small></span>
+      <span class="loop" aria-hidden="true">↺</span>
+      <button class="btn no-print" type="button" id="printBtn">打印</button>
+    </div>
+  </header>
+
+  <!-- ===== the six phases: one row each (letter · name · who · what you do) ===== -->
+  <section class="sec" id="phases" aria-label="六个阶段">
+    <ol class="rows">
+      <li class="row p"><span class="lt" aria-hidden="true">P</span><p><b class="name">以问题为中心的挑战</b><span class="who">你</span>用一句话说明关键问题：消火栓出流时，主管压力不得低于规定下限。</p><input class="tick" type="checkbox" data-k="P" aria-label="已完成：以问题为中心的挑战" title="保存在此浏览器中"></li>
+      <li class="row"><span class="lt" aria-hidden="true">F</span><p><b class="name">界定问题</b><span class="who">你</span>列出已知量、未知量、假设（恒定流？紊流？），以及合格答案必须满足的条件。</p><input class="tick" type="checkbox" data-k="F" aria-label="已完成：界定问题" title="保存在此浏览器中"></li>
+      <li class="row"><span class="lt" aria-hidden="true">A</span><p><b class="name">类比与尝试</b><span class="who">你</span>连续方程、能量方程、动量方程，还是流体静力学？选定思路，先尝试：画图、估算、核对单位。</p><input class="tick" type="checkbox" data-k="A" aria-label="已完成：类比与尝试" title="保存在此浏览器中"></li>
+      <li class="row c"><span class="lt" aria-hidden="true">C</span><p><b class="name">咨询与建构</b><span class="who">你 + AI</span>展示你的尝试，指出一个具体缺口； <b class="ai">AI 可以检查、提示或解释</b> ——其余工作由你完成。</p><input class="tick" type="checkbox" data-k="C" aria-label="已完成：咨询与建构" title="保存在此浏览器中"></li>
+      <li class="row"><span class="lt" aria-hidden="true">E</span><p><b class="name">评价与解释</b><span class="who">你</span>用手算或教材核查，而非让 AI 为自己作证。接受、修正或拒绝，并说明理由。</p><input class="tick" type="checkbox" data-k="E" aria-label="已完成：评价与解释" title="保存在此浏览器中"></li>
+      <li class="row"><span class="lt" aria-hidden="true">T</span><p><b class="name">转化与迁移</b><span class="who">你</span>用自己的话写出最终答案，并记下下次应优先检查什么。</p><input class="tick" type="checkbox" data-k="T" aria-label="已完成：转化与迁移" title="保存在此浏览器中"></li>
+    </ol>
+  </section>
+
+  <!-- ===== at C: the prompts ===== -->
+  <section class="sec" id="prompts" aria-label="C 阶段：两条可复制的提示词">
+    <p class="pattern"><b>在 C 阶段，选择一条提示词。</b> 还没有自己尝试？先不要打开 ChatGPT。</p>
+    <div class="prompts">
+      <div class="pr"><div class="head"><h2>卡在某一步</h2><button class="copy" type="button">复制</button></div><pre class="prompt">问题：[一句话描述]。我的尝试：[粘贴内容或附图]。我卡在[具体步骤]。请指出错误（单位、方程、取值范围），然后只给一条提示。不要替我完成，剩下的由我来做。</pre></div>
+      <div class="pr"><div class="head"><h2>检查我的建模过程</h2><button class="copy" type="button">复制</button></div><pre class="prompt">我对[问题]的建模过程：[粘贴内容或附图]。方程、假设或基准面是否有不一致之处？请指出来，修改由我完成。</pre></div>
+    </div>
+  </section>
+
+  <!-- ===== at E, and the one hand-off test: side by side ===== -->
+  <section class="sec two" aria-label="E 阶段核查与任务交付原则">
+    <div class="flag" id="flags">
+      <p><b>在 E 阶段，警惕 AI 在流体力学中的常见错误：单位、假设、似是而非的论断、遗漏约束。</b> 逐项用计算或可靠资料核实。另一个 AI 表示赞同，并不构成证据。</p>
+      <details class="more">
+        <summary>四个例子</summary>
+        <ul>
+          <li><b>单位：</b> 把毫米数值直接代入以米为单位的公式。</li>
+          <li><b>假设：</b> 将层流公式（f = 64/Re）用于紊流（Re = 300,000）。</li>
+          <li><b>似是而非的论断：</b> “局部水头损失可以忽略”——对短管而言，不能轻率作此判断。</li>
+          <li><b>遗漏约束：</b> 仅确认消防流量达标，却未检查压力下限。</li>
+        </ul>
+      </details>
+    </div>
+    <div class="hint" id="offloading">
+      <p><b>只把本次学习目标之外的辅助工作交给 AI。</b> 辅助性的单位换算可以交给 AI；如果练习目标就是单位换算，则应自己完成 <span class="mech">（机械性）</span>。“指出我尝试中的错误，修改由我来做”——可以，判断仍由你完成 <span class="sup">（支持性）</span>。“解出来并列出所有步骤”——跳过了学习过程 <span class="sub">（替代性）</span>.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p class="credit">P-FACET 模型 © Yupei Duan 与 Danielle Oprean，密苏里大学。</p>
+  <p><a href="https://yupei2023.github.io/p-facet">关于 P-FACET 模型（英文）</a> · <a href="game.html">体验 Flowline</a></p>
+</footer>
+
+<script>
+(function(){
+  document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+
+  // six quiet tick boxes, remembered in this browser (localStorage); no counter, no reset, no banner
+  var KEY = 'pfacet-checklist-zh-v3';
+  var ticks = document.querySelectorAll('.row .tick');
+  var saved = {};
+  try{ saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; }catch(e){ saved = {}; }
+  ticks.forEach(function(t){
+    t.checked = !!saved[t.getAttribute('data-k')];
+    t.addEventListener('change', function(){
+      var state = {};
+      ticks.forEach(function(x){ if(x.checked) state[x.getAttribute('data-k')] = 1; });
+      try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+    });
+  });
+
+  // copy buttons
+  document.querySelectorAll('.pr .copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var text = btn.closest('.pr').querySelector('.prompt').textContent;
+      function done(){ btn.textContent = '已复制 ✓'; btn.classList.add('done'); setTimeout(function(){ btn.textContent='复制'; btn.classList.remove('done'); }, 1600); }
+      function fallback(){
+        var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly','');
+        ta.style.position='fixed'; ta.style.left='-9999px'; document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); }catch(e){}
+        document.body.removeChild(ta); done();
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done, fallback); }
+      else fallback();
+    });
+  });
+})();
+</script>
+</body>
+</html>
